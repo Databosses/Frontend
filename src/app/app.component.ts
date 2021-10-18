@@ -9,4 +9,9 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Frontend';
   isNavbarCollapsed = true;
+
+  constructor(private router: Router) { }
+  route(path: String) {
+    this.router.navigate(['/' + path]);
+  }
 }

@@ -1,0 +1,25 @@
+<p>Table is just a mapping of objects to table rows with <code>ngFor</code></p>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th *ngFor="let key of keysOfContries" scope="col">{{ key }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let country of countries">
+    <td>
+      <a routerLink="/lotchart">{{ country.id }}</a> 
+    </td>
+    <td>
+      {{ country.name }}
+    </td>
+    <td>
+      {{ country.location }}
+    </td>
+    <td>
+      {{ country.partcount | number }}
+    </td>
+  </tr>
+  </tbody>
+</table>
