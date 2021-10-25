@@ -1,4 +1,5 @@
-<p>Table is just a mapping of objects to table rows with <code>ngFor</code></p>
+<br>
+<h2>Lot Details</h2>
 
 <table class="table table-striped">
   <thead>
@@ -9,7 +10,7 @@
   <tbody>
   <tr *ngFor="let country of countries">
     <td>
-      <a routerLink="/lotchart">{{ country.id }}</a> 
+      <a [routerLink]="['/lotchart', country.id]">{{ country.id }}</a> 
     </td>
     <td>
       {{ country.name }}

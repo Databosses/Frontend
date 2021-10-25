@@ -1,0 +1,8 @@
+.chart-container {
+  display:flex;
+   flex-wrap: wrap;
+  align-content: space-evenly;
+}
+.chart-container figure{
+  width:50%;
+}

@@ -28,30 +28,30 @@ const LOTDetails: Lot[] = [
     id: 1,
     name: "rand1",
     location: 'Russia',
-    partcount: 146989754
+    partcount: 10000
   },
   {
     id: 2,
     name: "rand2",
     location: 'Canada',
-    partcount: 36624199
+    partcount: 10000
   },
   {
     id: 3,
     name: "rand3",
     location: 'United States',
-    partcount: 324459463
+    partcount: 10000
   },
   {
     id: 4,
     name: "rand4",
     location: 'United States',
-    partcount: 324459463
+    partcount: 15000
   },
   {
     id: 5,
     name: "rand5",
     location: 'China',
-    partcount: 1409517397
+    partcount: 20000
   }
 ];

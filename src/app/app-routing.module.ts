@@ -6,7 +6,7 @@ import { LotChartComponent } from './lot-chart/lot-chart.component';
 const routes: Routes = [
   { path: '', redirectTo: 'lotdetails', pathMatch: 'full' },
   { path: 'lotdetails', component: HomePageComponent },
-  { path: 'lotchart', component: LotChartComponent }
+  { path: 'lotchart/:id', component: LotChartComponent }
 ];
 
 @NgModule({
