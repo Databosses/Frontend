@@ -1,0 +1,43 @@
+<br>
+<h2>Create a new Configuration</h2>
+
+
+{{ name }}
+{{ description }}
+{{ ownerId }}
+{{ empIds }}
+{{ date | json }}
+{{ time | json }}
+
+<div class="create-form">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Config Name:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Suitable Name" [(ngModel)]='name'>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Creation Date:</label>
+    <br>
+    <ngb-datepicker #dp [(ngModel)]="date"></ngb-datepicker>
+    <br>
+    <br>
+    <label for="exampleFormControlInput1" class="form-label">Creation Time:</label>
+    <br>
+    <ngb-timepicker [(ngModel)]="time" [seconds]="seconds" [meridian]="meridian"></ngb-timepicker>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Configuration Description:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]='description'></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Owner ID</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='ownerId'>
+      <option *ngFor="let id of empIds">{{ id }}</option>
+    </select>
+  </div>
+
+  <p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <button type="button" class="btn btn-primary" (click)="createConfig()"><i class="bi bi-save-fill"></i> Save Configuration</button>
+</div>

@@ -1,0 +1,36 @@
+<br>
+<h2>Update Configuration: {{ configuration[1] }}</h2>
+<p>update-configuration works!</p>
+
+
+{{ configuration | json }}
+
+<br>
+
+{{ date | json }}
+{{ time | json }}
+
+<div class="update-form">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Config Name:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Suitable Name" [(ngModel)]='configuration[1]'>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Creation Date:</label>
+    <br>
+    <ngb-datepicker #dp [(ngModel)]="date"></ngb-datepicker>
+    <br>
+    <br>
+    <label for="exampleFormControlInput1" class="form-label">Creation Time:</label>
+    <br>
+    <ngb-timepicker [(ngModel)]="time" [seconds]="seconds" [meridian]="meridian"></ngb-timepicker>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Configuration Description:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]='configuration[3]'></textarea>
+  </div>
+  <p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <button type="button" class="btn btn-primary" (click)="updateConfig()">Update</button>
+</div>

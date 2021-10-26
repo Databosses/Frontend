@@ -1,26 +1,36 @@
 <br>
-<h2>Lot Details</h2>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th *ngFor="let key of keysOfContries" scope="col">{{ key }}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let country of countries">
-    <td>
-      <a [routerLink]="['/lotchart', country.id]">{{ country.id }}</a> 
-    </td>
-    <td>
-      {{ country.name }}
-    </td>
-    <td>
-      {{ country.location }}
-    </td>
-    <td>
-      {{ country.partcount | number }}
-    </td>
-  </tr>
-  </tbody>
-</table>
+<h2>Configuration Details</h2>
+<div class="table">
+  <button type="button" class="btn btn-primary" (click)="createConf()"><i class="bi bi-plus-lg"></i> Create a new Configuration</button>
+  <br>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th *ngFor="let key of keysOfConfigs" scope="col">{{ key }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let configuration of configurations">
+      <td>
+        <a [routerLink]="['/updateconfdetails', configuration[0]]">{{ configuration[0] }}</a> 
+      </td>
+      <td>
+        {{ configuration[1] }}
+      </td>
+      <td>
+        {{ configuration[2] }}
+      </td>
+      <td>
+        {{ configuration[3]}}
+      </td>
+      <td>
+        {{ configuration[4] | number }}
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="updateConf(configuration[0])"><i class="bi bi-pencil-fill"></i></button>
+        <button type="button" class="btn btn-danger" (click)="deleteConf(configuration[0])"><i class="bi bi-trash-fill"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
