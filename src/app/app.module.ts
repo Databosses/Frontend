@@ -15,6 +15,7 @@ import { LotDetailsComponent } from './lot-page/lot-details/lot-details.componen
 import { CreateLotComponent } from './lot-page/create-lot/create-lot.component';
 import { UpdateLotComponent } from './lot-page/update-lot/update-lot.component';
 import { VisualizeLotComponent } from './lot-page/visualize-lot/visualize-lot.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -36,7 +37,8 @@ import { VisualizeLotComponent } from './lot-page/visualize-lot/visualize-lot.co
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
