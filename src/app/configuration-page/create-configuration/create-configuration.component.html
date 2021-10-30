@@ -1,7 +1,3 @@
-<br>
-<h2>Create a new Configuration</h2>
-
-
 {{ name }}
 {{ description }}
 {{ ownerId }}
@@ -10,6 +6,7 @@
 {{ time | json }}
 
 <div class="create-form">
+  <h2>Create a new Configuration</h2>
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Config Name:</label>
     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Suitable Name" [(ngModel)]='name'>

@@ -1,0 +1,49 @@
+<div class="table">
+  <h2>Lot Details</h2>
+  <button type="button" class="btn btn-primary" (click)="createLot()"><i class="bi bi-plus-lg"></i> Create a new Lot</button>
+  <br>
+  <br>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th *ngFor="let key of keysOfLots" scope="col">{{ key }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let lot of lots">
+      <td>
+        {{ lot[0] }}
+      </td>
+      <td>
+        {{ lot[1] }}
+      </td>
+      <td>
+        {{ lot[2] }}
+      </td>
+      <td>
+        {{ lot[3] }}
+      </td>
+      <td>
+        {{ lot[4] }}
+      </td>
+      <td>
+        {{ lot[5] }}
+      </td>
+      <td>
+        {{ lot[6] }}
+      </td>
+      <td>
+        {{ lot[7] }}
+      </td>
+      <td>
+        {{ lot[8] }}
+      </td>
+      <td>
+        <button type="button" class="btn btn-success" (click)="visualizeLot(lot[0])"><i class="bi bi-pie-chart-fill"></i></button>
+        <button type="button" class="btn btn-primary" (click)="updateLot(lot[0])"><i class="bi bi-pencil-fill"></i></button>
+        <button type="button" class="btn btn-danger" (click)="deleteLot(lot[0])"><i class="bi bi-trash-fill"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

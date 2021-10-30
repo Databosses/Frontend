@@ -30,9 +30,9 @@ export class CreateConfigurationComponent implements OnInit {
   }
 
   createConfig() {
-    this.configuration.push(this.name);
+    this.configuration.push(this.name.replace("'", "").replace('"', ''));
     this.configuration.push(this.date.year + "-" + this.date.month + "-" + this.date.day + " " + this.time.hour + ":" + this.time.minute + ":" + this.time.second);
-    this.configuration.push(this.description);
+    this.configuration.push(this.description.replace("'", "").replace('"', ''));
     this.configuration.push(this.ownerId);
     console.log(this.configuration);
     if(this.name != "" && this.description != "" && this.ownerId != -1){

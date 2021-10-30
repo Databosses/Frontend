@@ -1,0 +1,53 @@
+{{ lot | json }}
+<div class="create-form">
+  <h2>Update Lot: {{ lot[1] }}</h2>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Lot Name:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Suitable Name" [(ngModel)]='lot[1]'>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Material:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='lot[2]'>
+      <option>PLASTIC</option>
+      <option>METAL</option>
+      <option>GLASS</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Height:</label>
+    <input type="number" step="0.01" class="form-control" id="exampleFormControlInput1" placeholder="In cms" [(ngModel)]='lot[3]'>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Diameter:</label>
+    <input type="number" step="0.01" class="form-control" id="exampleFormControlInput1" placeholder="In cms" [(ngModel)]='lot[4]'>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Configuration:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='lot[5]'>
+      <option *ngFor="let id of configurationIds">{{ id[0] }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Location:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='lot[6]'>
+      <option *ngFor="let id of locIds">{{ id[0] }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Assignee:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='lot[7]'>
+      <option *ngFor="let id of empIds">{{ id[0] }}</option>
+    </select>
+  </div>
+
+  <p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <button type="button" class="btn btn-primary" (click)="updateLot()"><i class="bi bi-save-fill"></i> Save Lot</button>
+</div>

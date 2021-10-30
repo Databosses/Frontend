@@ -1,0 +1,64 @@
+<br>
+
+
+
+{{ name }}
+{{ material }}
+{{ height }}
+{{ diameter }}
+{{ configuration }}
+{{ loc }}
+{{ assignee }}
+
+<div class="create-form">
+  <h2>Create a new Lot</h2>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Lot Name:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Suitable Name" [(ngModel)]='name'>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Material:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='material'>
+      <option>PLASTIC</option>
+      <option>METAL</option>
+      <option>GLASS</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Height:</label>
+    <input type="number" step="0.01" class="form-control" id="exampleFormControlInput1" placeholder="In cms" [(ngModel)]='height'>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Diameter:</label>
+    <input type="number" step="0.01" class="form-control" id="exampleFormControlInput1" placeholder="In cms" [(ngModel)]='diameter'>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Configuration:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='configuration'>
+      <option *ngFor="let id of configurationIds">{{ id[0] }},{{ id[1] }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Location:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='loc'>
+      <option *ngFor="let id of locIds">{{ id[0] }},{{ id[1] }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Assignee:</label>
+    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='assignee'>
+      <option *ngFor="let id of empIds">{{ id[0] }},{{ id[1] }}</option>
+    </select>
+  </div>
+
+  <p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <button type="button" class="btn btn-primary" (click)="createLot()"><i class="bi bi-save-fill"></i> Save Lot</button>
+</div>

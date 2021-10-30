@@ -41,7 +41,9 @@ export class UpdateConfigurationComponent implements OnInit {
   }
 
   updateConfig() {
+    this.configuration[1] = this.configuration[1].replace("'", "").replace('"', '');
     this.configuration[2] = this.date.year + "-" + this.date.month + "-" + this.date.day + " " + this.time.hour + ":" + this.time.minute + ":" + this.time.second;
+    this.configuration[3] = this.configuration[3].replace("'", "").replace('"', '');
     this.dataService.sendPostRequest("setConf", this.configuration).subscribe((data) => {
       console.log(data);
     },
