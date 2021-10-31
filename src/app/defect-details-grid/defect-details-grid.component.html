@@ -1,49 +1,49 @@
 <h3>Defect Details</h3>
- <gui-grid class="" style="padding: 10px" [source]="defect_details1" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >
+ <gui-grid class="" style="padding: 10px" [source]="defect_details1" (sourceEdited) = "sourceEdited($event)" [cellEditing]="false" >
 
-        <gui-grid-column [cellEditing]="true" header="DEFECT_ID" field="DEFECT_ID" >
+        <gui-grid-column header="DEFECT_ID" field="DEFECT_ID" >
             <ng-template let-value="value" let-index="value">
                 {{value}}
             </ng-template>
         </gui-grid-column>
     
-        <gui-grid-column class="time-overflow"[cellEditing]="false" header="TYPE" field="TYPE" >
+        <gui-grid-column class="time-overflow"header="TYPE" field="TYPE" >
             <ng-template let-value="value" let-item="item">
                 {{value}}
             </ng-template>
         </gui-grid-column> 
 
-        <gui-grid-column class="time-overflow"  [cellEditing]="true" header="DEPTH" field="DEPTH">
+        <gui-grid-column class="time-overflow" header="DEPTH" field="DEPTH">
             <ng-template let-value="value">
                 {{value}}
             </ng-template>
         </gui-grid-column>
     
-        <gui-grid-column class="time-overflow"  [cellEditing]="true" header="ASPECT_RATIO" field="ASPECT_RATIO" >
+        <gui-grid-column class="time-overflow" header="ASPECT_RATIO" field="ASPECT_RATIO" >
             <ng-template let-value="value">
                 <i>{{value}}</i>
             </ng-template>
         </gui-grid-column>
 
-        <gui-grid-column class="time-overflow"  [cellEditing]="true" header="DIAMETER" field="DIAMETER">
+        <gui-grid-column class="time-overflow"  header="DIAMETER" field="DIAMETER">
             <ng-template let-value="value">
                 {{value}}
             </ng-template>
         </gui-grid-column>
     
-        <gui-grid-column class="time-overflow"  [cellEditing]="true" header="CIRCULAR_RATIO" field="CIRCULAR_RATIO">
+        <gui-grid-column class="time-overflow"  header="CIRCULAR_RATIO" field="CIRCULAR_RATIO">
             <ng-template let-value="value">
                 <i>{{value}}</i>
             </ng-template>
         </gui-grid-column>
 
-        <gui-grid-column class="time-overflow"  [cellEditing]="true" header="ACTUAL_DIAMETER" field="ACTUAL_DIAMETER">
+        <gui-grid-column class="time-overflow" header="ACTUAL_DIAMETER" field="ACTUAL_DIAMETER">
             <ng-template let-value="value">
                 {{value}}
             </ng-template>
         </gui-grid-column>
     
-        <gui-grid-column class="time-overflow"  [cellEditing]="true" header="ACTUAL_HEIGHT" field="ACTUAL_HEIGHT">
+        <gui-grid-column class="time-overflow" header="ACTUAL_HEIGHT" field="ACTUAL_HEIGHT">
             <ng-template let-value="value">
                 <i>{{value}}</i>
             </ng-template>
@@ -51,43 +51,41 @@
 
 </gui-grid>
 
-
-
-
-
 <div class="fieldset-style" style="font-size: 12px">
-    <fieldset>
-        <legend>Defect: Add | Update | Delete </legend>
+    <fieldset style="padding: 10px; border: solid 1px gray;" >
+        <legend style="width:15%; font-size: 14px;" >Defect: Add | Update | Delete </legend>
             <span class="input-width">
-            <mat-form-field appearance="fill">
-                <mat-label>Defect Id</mat-label>
-                <input matInput [(ngModel)] = "formValues.defect_id" (ngModelChange)="defectIdChange($event)">
-              </mat-form-field>
+                <label style="padding: 5px" for="defect_id">Defect Id</label>
+                <input id="defect_id" [(ngModel)] = "formValues.defect_id" (ngModelChange)="defectIdChange($event)">
             </span>  
-            <span class="input-width"> <mat-form-field appearance="fill">
-                <mat-label>Select defect type</mat-label>
-                <mat-select [(value)] = "formValues.defect_type" (selectionChange)="defectTypeChange($event)">
-                  <mat-option value="SCRATCH">SCRATCH</mat-option>
-                  <mat-option value="HOLE">HOLE</mat-option>
-                  <mat-option value="DIM_ERR">DIM_ERR</mat-option>
-                </mat-select>
-              </mat-form-field>   
+            <span class="input-width"> 
+                <label>Select defect type</label>
+                
+                <select class='select-option'
+                    #dropDown
+                    [(value)] = "formValues.defect_type"
+                    (change)='defectTypeChange($event)'>
+                <option value="">Select type</option>
+                <option class='option' value="SCRATCH">SCRATCH</option>
+                <option class='option' value="HOLE">HOLE</option>
+                <option class='option' value="DIM_ERR">DIM_ERR</option>
+                </select>
             </span>
             <span class="input-width" *ngIf="formValues.defect_type != ''" >
-                <mat-form-field appearance="fill">
-                    <mat-label *ngIf="formValues.defect_type=='SCRATCH'">DEPTH</mat-label>
-                    <mat-label *ngIf="formValues.defect_type=='HOLE'">DIAMETER</mat-label>
-                    <mat-label *ngIf="formValues.defect_type=='DIM_ERR'">ACTUAL_DIAMETER</mat-label>
-                    <input matInput [(ngModel)] = "formValues.defect_detail_1">
-                  </mat-form-field>
+                
+                    <label style="padding: 5px" *ngIf="formValues.defect_type=='SCRATCH'">DEPTH</label>
+                    <label style="padding: 5px" *ngIf="formValues.defect_type=='HOLE'">DIAMETER</label>
+                    <label style="padding: 5px" *ngIf="formValues.defect_type=='DIM_ERR'">ACTUAL_DIAMETER</label>
+                    <input  [(ngModel)] = "formValues.defect_detail_1">
+                  
                 </span>  
             <span class="input-width" *ngIf="formValues.defect_type != ''">
-                <mat-form-field appearance="fill">
-                    <mat-label *ngIf="formValues.defect_type=='SCRATCH'">ASPECT_RATIO</mat-label>
-                    <mat-label *ngIf="formValues.defect_type=='HOLE'">CIRCULAR_RATIO</mat-label>
-                    <mat-label *ngIf="formValues.defect_type=='DIM_ERR'">ACTUAL_HEIGHT</mat-label>
-                    <input matInput [(ngModel)] = "formValues.defect_detail_2">
-                  </mat-form-field>
+                
+                    <label style="padding: 5px" *ngIf="formValues.defect_type=='SCRATCH'">ASPECT_RATIO</label>
+                    <label style="padding: 5px" *ngIf="formValues.defect_type=='HOLE'">CIRCULAR_RATIO</label>
+                    <label style="padding: 5px" *ngIf="formValues.defect_type=='DIM_ERR'">ACTUAL_HEIGHT</label>
+                    <input  [(ngModel)] = "formValues.defect_detail_2">
+                  
             </span> 
 
             <div class="validator" *ngIf="invalidInput">*Please fill all the details</div>
