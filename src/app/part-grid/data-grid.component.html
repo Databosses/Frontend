@@ -3,6 +3,12 @@
 <button class="button-width" (click)="addRow()">Add Part</button>
 <button class="button-width" (click)="ngOnInit()">Refresh</button>
 </div>
+<div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
+<div class="validator" *ngIf="validator.invalidInputType">*Invalid input. Kindly provide correct values</div>
+<div class="validator" *ngIf="validator.lotDoesntExist">*Lot does not exist. Kindy provide an exisitng lot number</div>
+<div class="successValidator" *ngIf="validator.successfullUpdate">*Part updated successfully</div>
+<div class="successValidator" *ngIf="validator.successfullCreation">*Part created successfully</div>
+<div class="successValidator" *ngIf="validator.successfullDeletion">*Part deleted successfully</div>
  <gui-grid class="grid-width" [source]="source" [cellEditing]="true" >
 
         <gui-grid-column [cellEditing]="false" header="ID" field="ID" width="60" >
@@ -44,8 +50,3 @@
         </gui-grid-column>
 </gui-grid> 
 
-<div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
-<div class="validator" *ngIf="validator.lotDoesntExist">*Lot does not exist. Kindy provide an exisitng lot number</div>
-<div class="successValidator" *ngIf="validator.successfullUpdate">*Part updated successfully</div>
-<div class="successValidator" *ngIf="validator.successfullCreation">*Part created successfully</div>
-<div class="successValidator" *ngIf="validator.successfullDeletion">*Part deleted successfully</div>

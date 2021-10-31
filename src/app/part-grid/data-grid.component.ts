@@ -22,7 +22,8 @@ export class DataGridComponent implements OnInit {
                     lotDoesntExist: false, 
                     successfullUpdate: false, 
                     successfullCreation: false, 
-                    successfulDeletion: false
+                    successfulDeletion: false,
+                    invalidInputType: false
                   };
   emptySource = {
       "ID": "",
@@ -35,7 +36,7 @@ export class DataGridComponent implements OnInit {
   constructor(private dataService: DatabossApiService) { }
 
   ngOnInit() {
-    this.updateValidator([false, false, false, false, false]);
+    this.updateValidator([false, false, false, false, false, false]);
     this.getParts();
     this.getLotIds();
   }
@@ -82,9 +83,9 @@ export class DataGridComponent implements OnInit {
         (response) => {        
           this.ngOnInit();
           if(values.length === 5){
-            this.updateValidator([false, false, false, true, false]);
+            this.updateValidator([false, false, false, true, false, false]);
           }else{
-            this.updateValidator([false, false, true, false, false]);
+            this.updateValidator([false, false, true, false, false, false]);
           }
         },
         (error) => {                              //error() callback
@@ -98,7 +99,7 @@ export class DataGridComponent implements OnInit {
       (response) => {                           //next() callback
         console.log('response received' + response)
         this.ngOnInit();
-        this.updateValidator([false, false, false, false, true]);
+        this.updateValidator([false, false, false, false, true, false]);
       },
       (error) => {                              //error() callback
         console.error('Request failed with error')
@@ -136,6 +137,7 @@ export class DataGridComponent implements OnInit {
     this.validator.successfullCreation = args[2];
     this.validator.successfullUpdate =  args[3];
     this.validator.successfullDeletion =  args[4];
+    this.validator.invalidInputType = args[5];
   }
 
   addRow(){
@@ -147,16 +149,26 @@ export class DataGridComponent implements OnInit {
     let isLotPresent = this.lotIds.find((element: any[]) => {
       return element[0] == item.LOT;
     });
+
+    for(let i in item){
+      if(i == "BUCKET" || i == "LOT"){
+        if(isNaN(Number(item[i])))
+        {
+          this.updateValidator([false, false, false, false, false, true]);
+          return false;
+        }
+      }
+    }
     
     for(let i in item){
       if(item[i] === "" && i !== "ID"){
-        this.updateValidator([true, false, false, false, false]);
+        this.updateValidator([true, false, false, false, false, false]);
         return false;
       }
     }
 
     if(!isLotPresent){
-      this.updateValidator([false, true, false, false, false]);
+      this.updateValidator([false, true, false, false, false, false]);
       return false;
     }
     return true;

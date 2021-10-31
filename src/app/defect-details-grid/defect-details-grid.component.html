@@ -89,6 +89,7 @@
             </span> 
 
             <div class="validator" *ngIf="invalidInput">*Please fill all the details</div>
+            <div class="validator" *ngIf="invalidInputType">*Invalid input. Kindly provide correct input.</div>
 
             <div>
             <button class="button-width" [disabled]="ifDefectExist" (click)="saveDetails()"> Add</button> 

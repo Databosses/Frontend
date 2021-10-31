@@ -53,7 +53,7 @@ export class DefectGridComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateValidator([false, false, false, false, false, false]);
+    this.updateValidator([false, false, false, false, false, false, false]);
   }
 
   updateValidator(args: any[]){
@@ -64,6 +64,7 @@ export class DefectGridComponent implements OnInit {
     this.validator.successfullUpdate =  args[4];
     this.validator.successfullDeletion =  args[5];
     this.validator.partIdCannotBeChanged = args[6];
+    this.validator.invalidInputType = args[7];
   }
 
   public getParts() {
@@ -162,13 +163,18 @@ export class DefectGridComponent implements OnInit {
         })
   }
 
-  public pushData(urlStr: string, values: any) {
+  public pushData(urlStr: string, values: any, isCreate: any) {
     this.dataService.insertData(urlStr, values)
       .subscribe(
         (response) => {                           //next() callback
           console.log('response received' + response)
           this.getPartsDefects();
           this.ngOnInit();
+          if(isCreate){
+            this.updateValidator([false, false, false, true, false, false, false, false]);
+          }else{
+            this.updateValidator([false, false, false, false, true, false, false, false]);
+          }
         },
         (error) => {                              //error() callback
           console.error('Request failed with error')
@@ -181,6 +187,7 @@ export class DefectGridComponent implements OnInit {
       (response) => {                           //next() callback
         console.log('response received' + response)
         this.ngOnInit();
+        this.updateValidator([false, false, false, false, false, true, false, false]);
       },
       (error) => {                              //error() callback
         console.error('Request failed with error')
@@ -220,21 +227,31 @@ export class DefectGridComponent implements OnInit {
     let isDefectPresent = this.defects.find((element: { ID: any; }) => {
       return element.ID == item.DEFECT_ID;
     })
-    
+
+    for(let i in item){
+      if(i == "PART_ID" || i == "DEFECT_ID" || i == "DEFECT_COUNT"){
+        if(isNaN(Number(item[i])))
+        {
+          this.updateValidator([false, false, false, false, false, false, false, true]);
+          return false;
+        }
+      }
+    }
+
     for(let i in item){
       if(item[i] === "" && i !== "ID"){
-        this.updateValidator([true, false, false, false, false, false, false]);
+        this.updateValidator([true, false, false, false, false, false, false, false]);
         return false;
       }
     }
 
     if(!isPartPresent){
-      this.updateValidator([false, true, false, false, false, false, false]);
+      this.updateValidator([false, true, false, false, false, false, false, false]);
       return false;
     }
 
     if(!isDefectPresent){
-      this.updateValidator([false, false, true, false, false, false, false]);
+      this.updateValidator([false, false, true, false, false, false, false, false]);
       return false;
     }
     return true;
@@ -243,14 +260,14 @@ export class DefectGridComponent implements OnInit {
   saveDetails(item: any): void {
     if(this.validateDetails(item)){
       var values = this.getParameters(item);
-      this.pushData("addPartDefect", values);
+      this.pushData("addPartDefect", values, true);
     }
 	}
 
   updateDetails(item: any): void {
     if(this.validateDetails(item)){
       var values = this.getParameters(item);
-      this.pushData("updatePartDefect", values);
+      this.pushData("updatePartDefect", values, false);
     }
 	}
 
@@ -267,10 +284,10 @@ export class DefectGridComponent implements OnInit {
     this.ngOnInit();
 	}
 
-  updateType(item: { PART_ID: any; DEFECT_ID: any; }, value: any){
+  updateType(item: { PART_ID: any; DEFECT_ID: any; }, event: any){
     this.source.forEach((element: { PART_ID: any; DEFECT_ID: any; SEVERITY: any; }) => {
       if(element.PART_ID === item.PART_ID && element.DEFECT_ID === item.DEFECT_ID){
-        element.SEVERITY = value;
+        element.SEVERITY = event.target.value;
       }
     });
     this.ngOnInit();
@@ -297,7 +314,7 @@ export class DefectGridComponent implements OnInit {
         }
       });
       this.ngOnInit();
-      this.updateValidator([false,false,false,false,false,false,true]);
+      this.updateValidator([false,false,false,false,false,false,true, false]);
     }else{
       let item = this.defects.find((element: { ID: any; })=> {return element.ID == e.after.DEFECT_ID});
       if(item){

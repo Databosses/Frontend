@@ -3,6 +3,14 @@
 <button class="button-width"  (click)="addRow()">Link a defect</button>
 <button class="button-width" (click)="refreshComponent()">Refresh</button>
 </div>
+<div class="validator" *ngIf="validator.invalidInputType">*Invalid input. Kindly provide correct values</div>
+<div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
+<div class="validator" *ngIf="validator.partDoesntExist">*Part does not exist. Kindy provide an exisitng part number</div>
+<div class="validator" *ngIf="validator.defectDoesntExist">*Defect does not exist. Kindy provide an exisitng defect number</div>
+<div class="successValidator" *ngIf="validator.successfullUpdate">*Defect successfully updated on part</div>
+<div class="successValidator" *ngIf="validator.successfullCreation">*Defect successfully linked to part</div>
+<div class="successValidator" *ngIf="validator.successfullDeletion">*Defect successfully deleted from part</div>
+<div class="validator" *ngIf="validator.partIdCannotBeChanged">*Part cannot be updated. Either change the defect or add a defect on new a part</div>
  <gui-grid class="grid-width" style="width: 100%;" [source]="source" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >
 
         <gui-grid-column class="time-overflow" [cellEditing]="true" header="PART_ID" field="PART_ID">
@@ -19,21 +27,15 @@
     
         <gui-grid-column [cellEditing]="false" header="SEVERITY" field="SEVERITY">
             <ng-template let-value="value" let-item="item">
-                <button *ngIf="value" class="button-width" [matMenuTriggerFor]="menu" yPosition="above"> {{value}}
-                </button>
-                <button *ngIf="!value" class="button-width" [matMenuTriggerFor]="menu" yPosition="above"> Select Type
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="updateType(item, 'LOW')">
-                        <span>LOW </span>
-                    </button>
-                    <button mat-menu-item (click)="updateType(item, 'HIGH')">
-                        <span>HIGH</span>
-                    </button>
-                    <button mat-menu-item (click)="updateType(item, 'CRITICAL')">
-                        <span>CRITICAL</span>
-                    </button>
-                </mat-menu>
+                <select class='select-option'
+                    #dropDown
+                    [value] = "value"
+                    (change)="updateType(item, $event)">
+                <option value="">Select type</option>
+                <option class='option' value="LOW">LOW</option>
+                <option class='option' value="HIGH">HIGH</option>
+                <option class='option' value="CRITICAL">CRITICAL</option>
+                </select>
             </ng-template>
         </gui-grid-column>
 
@@ -58,14 +60,6 @@
             </ng-template>
         </gui-grid-column>
 </gui-grid> 
-
-<div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
-<div class="validator" *ngIf="validator.partDoesntExist">*Part does not exist. Kindy provide an exisitng part number</div>
-<div class="validator" *ngIf="validator.defectDoesntExist">*Defect does not exist. Kindy provide an exisitng defect number</div>
-<div class="successValidator" *ngIf="validator.successfullUpdate">*Defect successfully updated on part</div>
-<div class="successValidator" *ngIf="validator.successfullCreation">*Defect successfully linked to part</div>
-<div class="successValidator" *ngIf="validator.successfullDeletion">*Defect successfully deleted from part</div>
-<div class="validator" *ngIf="validator.partIdCannotBeChanged">*Part cannot be updated. Either change the defect or add a defect on new a part</div>
 
 <h4 *ngIf="scratch_details.length>0 || hole_details.length>0 || dim_err_details.length>0">Defect Info</h4>
 <gui-grid [cellEditing]="false" *ngIf="scratch_details.length>0" class="grid-width" [source]="scratch_details" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >

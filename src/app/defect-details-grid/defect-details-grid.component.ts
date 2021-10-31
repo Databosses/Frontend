@@ -9,6 +9,7 @@ import { DatabossApiService } from '../databoss-api.service';
 })
 export class DefectDetailsGridComponent implements OnInit {
   invalidInput: any = false;
+  invalidInputType: any = false;
   ifDefectExist: any = false;
   formValues = {defect_id: '', defect_type: '', defect_detail_1: "", defect_detail_2: ""};
   defect_details: any;
@@ -193,12 +194,37 @@ export class DefectDetailsGridComponent implements OnInit {
 
   validateDetails(){
     for(let i in this.formValues){
+      if(i == "defect_id" && isNaN(Number((this.formValues as any)[i])))
+      {
+          this.invalidInputType = true;
+          return false;
+      }
+      switch(this.formValues.defect_type){
+        case "DIM_ERR":
+        case "HOLE":
+          if((i == "defect_detail_1" || i == "defect_detail_2") && isNaN(Number((this.formValues as any)[i]))){
+            this.invalidInputType = true;
+            return false;
+          }
+          break;
+        case "SCRATCH":
+          if((i == "defect_detail_1") && isNaN(Number((this.formValues as any)[i]))){
+            this.invalidInputType = true;
+            return false;
+          }
+          break;
+      }
+      
+    }
+
+    for(let i in this.formValues){
       if((this.formValues as any)[i] === ""){
         this.invalidInput = true;
         return false;
       }
     }
     this.invalidInput = false;
+    this.invalidInputType = false;
     return true;
   }
 
@@ -258,6 +284,8 @@ export class DefectDetailsGridComponent implements OnInit {
   }
 
   handleInputChange(id: string, type: string | null){
+    this.invalidInput = false;
+    this.invalidInputType = false;
     this.source.every((element: any) => {
       if(element.DEFECT_ID == id){
         let values: any;
