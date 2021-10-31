@@ -1,0 +1,23 @@
+.button-width{
+    width: 100px;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+.grid-width{
+    width: 100%;;
+}
+
+.time-overflow{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.validator{
+    color: red;
+}
+
+.successValidator{
+    color: green;
+}

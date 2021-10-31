@@ -1,0 +1,27 @@
+.grid-width{
+    width: 70%;
+    display: inline-block
+}
+
+.form-width{
+    width: 30%;
+    display: inline-block
+}
+
+.input-width{
+    width: 19%;
+    padding: 5px;
+}
+
+.button-width{
+    width: 6em;
+    margin: 3px;
+}
+
+.fieldset-style{
+    padding: 10px;
+}
+
+.validator{
+    color: red;
+}

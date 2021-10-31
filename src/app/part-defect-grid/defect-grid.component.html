@@ -1,0 +1,133 @@
+<h3>Part-Defect Details</h3>
+<div>
+<button class="button-width"  (click)="addRow()">Link a defect</button>
+<button class="button-width" (click)="refreshComponent()">Refresh</button>
+</div>
+ <gui-grid class="grid-width" style="width: 100%;" [source]="source" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >
+
+        <gui-grid-column class="time-overflow" [cellEditing]="true" header="PART_ID" field="PART_ID">
+            <ng-template let-value="value">
+                <i>{{value}}</i>
+            </ng-template>
+        </gui-grid-column>
+
+        <gui-grid-column [cellEditing]="true" header="DEFECT_ID" field="DEFECT_ID" >
+            <ng-template let-value="value" let-index="value">
+                {{value}}
+            </ng-template>
+        </gui-grid-column>
+    
+        <gui-grid-column [cellEditing]="false" header="SEVERITY" field="SEVERITY">
+            <ng-template let-value="value" let-item="item">
+                <button *ngIf="value" class="button-width" [matMenuTriggerFor]="menu" yPosition="above"> {{value}}
+                </button>
+                <button *ngIf="!value" class="button-width" [matMenuTriggerFor]="menu" yPosition="above"> Select Type
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="updateType(item, 'LOW')">
+                        <span>LOW </span>
+                    </button>
+                    <button mat-menu-item (click)="updateType(item, 'HIGH')">
+                        <span>HIGH</span>
+                    </button>
+                    <button mat-menu-item (click)="updateType(item, 'CRITICAL')">
+                        <span>CRITICAL</span>
+                    </button>
+                </mat-menu>
+            </ng-template>
+        </gui-grid-column>
+
+        <gui-grid-column [cellEditing]="true" header="DEFECT_COUNT" field="DEFECT_COUNT">
+            <ng-template let-value="value">
+                <i>{{value}}</i>
+            </ng-template>
+        </gui-grid-column>
+
+        <gui-grid-column class="time-overflow"[cellEditing]="false" header="TYPE" field="TYPE">
+            <ng-template let-value="value" let-item="item">
+                <span class="button-width">{{value}}</span>
+                <button *ngIf="value" title="show defect details" class="info-button" (click)="showDefectDetails(item)">i</button>
+            </ng-template>
+        </gui-grid-column> 
+    
+        <gui-grid-column [cellEditing]="false" header="Actions" >
+            <ng-template let-item="item">
+                <button class="button-width" *ngIf="item.ID"  (click)="updateDetails(item)">Update</button>
+                <button class="button-width" *ngIf="!item.ID" (click)="saveDetails(item)">Save</button>
+                <button class="button-width" (click)="remove(item)">Remove</button>
+            </ng-template>
+        </gui-grid-column>
+</gui-grid> 
+
+<div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
+<div class="validator" *ngIf="validator.partDoesntExist">*Part does not exist. Kindy provide an exisitng part number</div>
+<div class="validator" *ngIf="validator.defectDoesntExist">*Defect does not exist. Kindy provide an exisitng defect number</div>
+<div class="successValidator" *ngIf="validator.successfullUpdate">*Defect successfully updated on part</div>
+<div class="successValidator" *ngIf="validator.successfullCreation">*Defect successfully linked to part</div>
+<div class="successValidator" *ngIf="validator.successfullDeletion">*Defect successfully deleted from part</div>
+<div class="validator" *ngIf="validator.partIdCannotBeChanged">*Part cannot be updated. Either change the defect or add a defect on new a part</div>
+
+<h4 *ngIf="scratch_details.length>0 || hole_details.length>0 || dim_err_details.length>0">Defect Info</h4>
+<gui-grid [cellEditing]="false" *ngIf="scratch_details.length>0" class="grid-width" [source]="scratch_details" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >
+
+    <gui-grid-column  header="DEFECT_ID" field="DEFECT_ID" >
+        <ng-template let-value="value" let-index="value">
+            {{value}}
+        </ng-template>
+    </gui-grid-column>
+
+    <gui-grid-column class="time-overflow"  header="DEPTH" field="DEPTH" >
+        <ng-template let-value="value">
+            {{value}}
+        </ng-template>
+    </gui-grid-column>
+
+    <gui-grid-column class="time-overflow"  header="ASPECT_RATIO" field="ASPECT_RATIO" >
+        <ng-template let-value="value">
+            <i>{{value}}</i>
+        </ng-template>
+    </gui-grid-column>
+</gui-grid> 
+
+<gui-grid [cellEditing]="false" *ngIf="hole_details.length>0" class="grid-width" [source]="hole_details" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >
+
+    <gui-grid-column  header="DEFECT_ID" field="DEFECT_ID"  >
+        <ng-template let-value="value" let-index="value">
+            {{value}}
+        </ng-template>
+    </gui-grid-column>
+
+    <gui-grid-column class="time-overflow" header="DIAMETER" field="DIAMETER" >
+        <ng-template let-value="value">
+            {{value}}
+        </ng-template>
+    </gui-grid-column>
+
+    <gui-grid-column class="time-overflow" header="CIRCULAR_RATIO" field="CIRCULAR_RATIO" >
+        <ng-template let-value="value">
+            <i>{{value}}</i>
+        </ng-template>
+    </gui-grid-column>
+</gui-grid> 
+
+<gui-grid [cellEditing]="false" *ngIf="dim_err_details.length > 0" class="grid-width" [source]="dim_err_details" (sourceEdited) = "sourceEdited($event)" [cellEditing]="true" >
+
+    <gui-grid-column  header="DEFECT_ID" field="DEFECT_ID" >
+        <ng-template let-value="value" let-index="value">
+            {{value}}
+        </ng-template>
+    </gui-grid-column>
+
+    <gui-grid-column class="time-overflow" header="ACTUAL_DIAMETER" field="ACTUAL_DIAMETER" >
+        <ng-template let-value="value">
+            {{value}}
+        </ng-template>
+    </gui-grid-column>
+
+    <gui-grid-column class="time-overflow" header="ACTUAL_HEIGHT" field="ACTUAL_HEIGHT" >
+        <ng-template let-value="value">
+            <i>{{value}}</i>
+        </ng-template>
+    </gui-grid-column>  
+</gui-grid> 
+

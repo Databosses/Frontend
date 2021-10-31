@@ -26,4 +26,19 @@ export class DatabossApiService {
     console.log("I am now here")
     throw new Error('Bad response.');
   }
+
+  getItems(getUrl: any): Observable<any>  {
+    return this.http.get(this.REST_API_SERVER + getUrl);
+  }
+
+  insertData(postUrl: any, values: any): Observable<any>{
+    return this.http.post(this.REST_API_SERVER + postUrl, values, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })})
+  }
+
+  deleteItem(urlStr: any, itemId: any){
+    return this.http.delete(this.REST_API_SERVER + urlStr + `${itemId}`, {})
+  }
 }
