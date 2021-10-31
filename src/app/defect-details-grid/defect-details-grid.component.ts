@@ -45,12 +45,11 @@ export class DefectDetailsGridComponent implements OnInit {
     {key: "CIRCULAR_RATIO", type: "STRING"},
     {key: "ACTUAL_DIAMETER", type: "Number"},
     {key: "ACTUAL_HEIGHT", type: "STRING"},
-    {key: "ID", type: "STRING"},
     {key: "TYPE", type: "STRING"}
   ]
     
   constructor(private dataService: DatabossApiService) { 
-    this.getParts();
+    this.getDefects();
     this.getDefectDetails();
     this.getDefectDetails1();
   }
@@ -111,7 +110,7 @@ export class DefectDetailsGridComponent implements OnInit {
         })
   }
 
-  getParts() {
+  getDefects() {
     this.dataService.getItems("getDefects")
       .subscribe(
         (response) => { 
@@ -140,6 +139,7 @@ export class DefectDetailsGridComponent implements OnInit {
           this.getDefectDetails1();
           this.resetFormValues();
           this.getDefectDetails();
+          this.getDefects();
           this.ngOnInit();
         },
         (error) => {                              //error() callback
@@ -162,6 +162,7 @@ export class DefectDetailsGridComponent implements OnInit {
         this.resetFormValues();
         this.getDefectDetails();
         this.getDefectDetails1();
+        this.getDefects();
         this.ngOnInit();
       },
       (error) => {                              //error() callback
@@ -261,6 +262,7 @@ export class DefectDetailsGridComponent implements OnInit {
       if(element.DEFECT_ID == id){
         let values: any;
         this.ifDefectExist = true;
+
         this.formValues.defect_type = type ? type : element.TYPE;
         values = this.getTypeDependentValues(this.formValues.defect_type, element.DEFECT_ID);
         this.formValues.defect_detail_1 = values.value1;
@@ -299,7 +301,7 @@ export class DefectDetailsGridComponent implements OnInit {
 
   defectTypeChange(e: any){
     if(this.formValues.defect_id !== "")
-      this.handleInputChange(this.formValues.defect_id, e.value);
+      this.handleInputChange(this.formValues.defect_id, e.target.value);
   }
 
   getParameters(){
