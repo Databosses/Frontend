@@ -13,7 +13,7 @@ export class CreateConfigurationComponent implements OnInit {
   date: NgbDateStruct = {year: 2021, month: 1, day: 1};
   time: NgbTimeStruct = {hour: 0, minute: 0, second: 0};
   description: string = ""
-  ownerId: number = -1;
+  ownerId: string = "-1";
   empIds: any;
   seconds = true;
   meridian = true;
@@ -23,7 +23,7 @@ export class CreateConfigurationComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DatabossApiService) { }
 
   ngOnInit(): void {
-    this.dataService.sendGetRequest("getEmpIds").subscribe((data) => {
+    this.dataService.sendGetRequest("getIds?table=EMPLOYEE&filter=FIRSTNAME").subscribe((data) => {
       console.log(data);
       this.empIds = data;
     })
@@ -33,9 +33,9 @@ export class CreateConfigurationComponent implements OnInit {
     this.configuration.push(this.name.replace("'", "").replace('"', ''));
     this.configuration.push(this.date.year + "-" + this.date.month + "-" + this.date.day + " " + this.time.hour + ":" + this.time.minute + ":" + this.time.second);
     this.configuration.push(this.description.replace("'", "").replace('"', ''));
-    this.configuration.push(this.ownerId);
+    this.configuration.push(Number(this.ownerId.split(",")[0]));
     console.log(this.configuration);
-    if(this.name != "" && this.description != "" && this.ownerId != -1){
+    if(this.name != "" && this.description != "" && this.ownerId != "-1"){
       this.dataService.sendPostRequest("createConf", this.configuration).subscribe((data) => {
         console.log(data);
       },

@@ -1,9 +1,9 @@
-{{ name }}
+<!-- {{ name }}
 {{ description }}
 {{ ownerId }}
 {{ empIds }}
 {{ date | json }}
-{{ time | json }}
+{{ time | json }} -->
 
 <div class="create-form">
   <h2>Create a new Configuration</h2>
@@ -29,7 +29,7 @@
   <div class="form-group">
     <label for="exampleFormControlSelect1">Owner ID</label>
     <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='ownerId'>
-      <option *ngFor="let id of empIds">{{ id }}</option>
+      <option *ngFor="let id of empIds">{{ id[0] }},{{ id[1] }}</option>
     </select>
   </div>
 
