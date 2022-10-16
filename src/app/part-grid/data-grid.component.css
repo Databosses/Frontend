@@ -4,6 +4,10 @@
     border-radius: 3px;
 }
 
+.component-container {
+    padding: 16px;
+}
+
 .grid-width{
     width: 100%;;
 }

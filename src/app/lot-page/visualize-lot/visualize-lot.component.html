@@ -1,15 +1,11 @@
-<div style="padding: 1rem;">
-  <h2>Lot Part Defect Visualization For Lot {{ id }}</h2>
-</div>
-<br>
-<div class="wrapper">
-  <canvas baseChart 
-    [data]="pieChartData" 
-    [labels]="pieChartLabels" 
-    [chartType]="pieChartType"
-    [options]="pieChartOptions"
-    [plugins]="pieChartPlugins"
-    [colors]="pieChartColors"
-    [legend]="pieChartLegend">
-  </canvas>
+<div class="component-container">
+  <div style="padding: 1rem;">
+    <h2>Lot Part Defect Visualization For Lot {{ id }}</h2>
+  </div>
+  <br>
+  <div class="wrapper">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+      [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
+    </canvas>
+  </div>
 </div>
