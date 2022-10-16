@@ -3,6 +3,10 @@
     display: inline-block
 }
 
+.component-container{
+    padding: 16px;
+}
+
 .form-width{
     width: 30%;
     display: inline-block

@@ -1,29 +1,33 @@
-<h3>Part Details</h3>
-<div>
-<button class="button-width" (click)="addRow()">Add Part</button>
-<button class="button-width" (click)="ngOnInit()">Refresh</button>
-</div>
-<div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
-<div class="validator" *ngIf="validator.invalidInputType">*Invalid input. Kindly provide correct values</div>
-<div class="validator" *ngIf="validator.lotDoesntExist">*Lot does not exist. Kindy provide an exisitng lot number</div>
-<div class="successValidator" *ngIf="validator.successfullUpdate">*Part updated successfully</div>
-<div class="successValidator" *ngIf="validator.successfullCreation">*Part created successfully</div>
-<div class="successValidator" *ngIf="validator.successfullDeletion">*Part deleted successfully</div>
- <gui-grid class="grid-width" [source]="source" [cellEditing]="true" >
+<div class="component-container">
+    <h3>Part Details</h3>
+    <div>
+        <button class="button-width" (click)="addRow()">Add Part</button>
+        <button class="button-width" (click)="ngOnInit()">Refresh</button>
+    </div>
+    <div class="validator" *ngIf="validator.invalidInput">*Please fill all the details</div>
+    <div class="validator" *ngIf="validator.invalidInputType">*Invalid input. Kindly provide correct values</div>
+    <div class="validator" *ngIf="validator.lotDoesntExist">*Lot does not exist. Kindy provide an exisitng lot number
+    </div>
+    <div class="successValidator" *ngIf="validator.successfullUpdate">*Part updated successfully</div>
+    <div class="successValidator" *ngIf="validator.successfullCreation">*Part created successfully</div>
+    <div class="successValidator" *ngIf="validator.successfullDeletion">*Part deleted successfully</div>
+    <gui-grid class="grid-width" [source]="source" [cellEditing]="true">
 
-        <gui-grid-column [cellEditing]="false" header="ID" field="ID" width="60" >
+        <gui-grid-column [cellEditing]="false" header="ID" field="ID" width="60">
             <ng-template let-value="value" let-index="index">
                 {{value}}
             </ng-template>
         </gui-grid-column>
-    
-        <gui-grid-column class="time-overflow"[cellEditing]="true" type="DATE" header="TEST_START_TIME" field="TEST_START_TIME">
+
+        <gui-grid-column class="time-overflow" [cellEditing]="true" type="DATE" header="TEST_START_TIME"
+            field="TEST_START_TIME">
             <ng-template let-value="value">
                 {{value}}
             </ng-template>
         </gui-grid-column>
-    
-        <gui-grid-column class="time-overflow" [cellEditing]="true" type="DATE"  header="TEST_END_TIME" field="TEST_END_TIME" >
+
+        <gui-grid-column class="time-overflow" [cellEditing]="true" type="DATE" header="TEST_END_TIME"
+            field="TEST_END_TIME">
             <ng-template let-value="value">
                 <i>{{value}}</i>
             </ng-template>
@@ -35,18 +39,20 @@
             </ng-template>
         </gui-grid-column>
 
-        <gui-grid-column [cellEditing]="true" header="LOT" field="LOT" >
+        <gui-grid-column [cellEditing]="true" header="LOT" field="LOT">
             <ng-template let-value="value">
                 <i>{{value}}</i>
             </ng-template>
         </gui-grid-column>
-    
-        <gui-grid-column [cellEditing]="false" header="Actions" >
+
+        <gui-grid-column [cellEditing]="false" header="Actions">
             <ng-template let-item="item">
-                <button class="button-width" *ngIf="item.ID" mat-stroked-button (click)="updateDetails(item)">Update</button>
-                <button class="button-width" *ngIf="!item.ID" mat-stroked-button (click)="saveDetails(item)">Save</button>
+                <button class="button-width" *ngIf="item.ID" mat-stroked-button
+                    (click)="updateDetails(item)">Update</button>
+                <button class="button-width" *ngIf="!item.ID" mat-stroked-button
+                    (click)="saveDetails(item)">Save</button>
                 <button class="button-width" mat-stroked-button (click)="remove(item)">Delete</button>
             </ng-template>
         </gui-grid-column>
-</gui-grid> 
-
+    </gui-grid>
+</div>

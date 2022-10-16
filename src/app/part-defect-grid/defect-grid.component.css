@@ -8,6 +8,10 @@
     width: 100%;;
 }
 
+.component-container {
+    padding: 16px;
+}
+
 .time-overflow{
     text-overflow: ellipsis;
     overflow: hidden;
