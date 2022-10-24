@@ -7,6 +7,10 @@
   background-color: #254e77;
 }
 
+.navbar-toggler {
+  color: white;
+}
+
 .nav-link {
   color: White;
 }
